@@ -1,0 +1,19 @@
+STEPS:
+
+1) Finding the right datasets:
+	a) UCF-Crime Dataset: 
+		Real-world Anomaly Detection in Surveillance Videos => https://www.kaggle.com/mission-ai/crimeucfdataset (around 17 GB),
+	   	Site: https://www.crcv.ucf.edu/projects/real-world/
+
+		Inside View: (Consists of 11 different classes)
+		i) Abuse
+		ii) Assault
+		iii) Burglary
+		iv) Fighting
+		v) Normal
+		vi) RoadAccidents
+		vii) Robbery
+		viii) Shooting
+		ix) Shoplifting
+		x) Stealing
+		xi) Vandalism
