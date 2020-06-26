@@ -17,3 +17,10 @@ STEPS:
 		ix) Shoplifting
 		x) Stealing
 		xi) Vandalism
+
+Related Works:
+
+1) Scannera (https://scannera.cz)
+2) An intelligent system to detect human suspicious activity using deep neural networks (https://content.iospress.com/articles/journal-of-intelligent-and-fuzzy-systems/ifs179003)
+3) Human Action Recognition using 3D Convolutional Neural Networks with 3D Motion Cuboids in Surveillance Videos(https://www.sciencedirect.com/science/article/pii/S1877050918310044)
+4) 
