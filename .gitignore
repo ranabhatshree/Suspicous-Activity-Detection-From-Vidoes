@@ -1,3 +1,4 @@
 frames
 videos
-3-class.npy
+3-class-numpy/3-class-images.npy
+3-class-numpy/3-class-labels.npy
