@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Suspicious Activity Detection" />
+        <meta name="author" content="Shree K. Ranabhat" />
+        <title>Suspicious Activity Detection</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="/static/style.css" rel="stylesheet" />
+    </head>
+    <body id="page-top">
+        <div id="app">
+                    <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg bg-secondary text-uppercase fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">Suspicious Activity Detection</a>
+                <button class="navbar-toggler navbar-toggler-right text-uppercase font-weight-bold bg-primary text-white rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#get_started">Get Stared</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead bg-primary text-white text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <!-- Masthead Avatar Image-->
+                <img class="masthead-avatar mb-5" src="/static/assets/img/emo.png" alt="" />
+                <!-- Masthead Heading-->
+                <h1 class="masthead-heading text-uppercase mb-0">Third Eye</h1>
+            </div>
+        </header>
+        <!-- Portfolio Section-->
+        <section class="page-section portfolio" id="get_started">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Upload Video</h2>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Portfolio Grid Items-->
+                <div class="row">
+                    <!-- Portfolio Item 1-->
+                    <div class="col-lg-6 mb-5">
+                        <div class="portfolio-item mx-auto">
+                            <img
+                            class="img-fluid" src="/static/assets/img/video.png"
+                            style="width: 100%"
+                            id="openFileUpload"
+                            >
+                            <video id="output" width="100%"
+                             style="display: none;" controls>
+                              <source type="video/mp4">
+                              Your browser does not support HTML video.
+                            </video>
+                        </div>
+                    </div>
+
+
+                    <!-- Portfolio Item 6-->
+                    <div class="col-lg-6">
+                        <div class="portfolio-item mx-auto" id="result">
+                            <form id="post-form">
+                                <input style="display:none"
+                                type="file" name="file"
+                                id="file"
+                                accept="video/*"
+                                onchange="loadFile(event)"
+                                required/>
+                                <button id="upload_predict_btn"
+                                        style="display:none"
+                                        type="submit" class="btn btn-primary">Predict</button>
+                            </form>
+                            <div id="response"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        </div>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script type="text/javascript">
+          var loadFile = function(event) {
+            $("#output").show()
+            $("#openFileUpload").hide()
+            var reader = new FileReader();
+            reader.onload = function(){
+              var output = document.getElementById('output');
+              output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+            $("#upload_predict_btn").show()
+          }
+
+          $(document).ready(function() {
+            $("#openFileUpload").click(function() {
+              $("#file").click()
+            })
+
+                $("#post-form").submit(function(e) {
+                  e.preventDefault();
+                  var formData = new FormData()
+                  formData.append('file', $('#file')[0].files[0])
+                  $.ajax({
+                         url : '/uploader',
+                         type : 'POST',
+                         data : formData,
+                         processData: false,
+                         contentType: false,
+                         beforeSend: () => {
+                          $("#upload_predict_btn").hide();
+                          $("#response").html("<h1>Predicting....</h1>")
+                         },
+                         success : function(data) {
+                          $("#submit_btn").hide();
+                          $("#response").html("");
+                          data.forEach(function(item, i) {
+                            $("#response").append(`<h5>${item}</h5>`)
+                          })
+
+                         }
+                  })
+                })
+
+          })
+        </script>
+    </body>
+</html>
